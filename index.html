@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alphabet in Spain · FINA 405</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a debt-issuance briefing. Sticky section rail, a term-sheet hero, then the project's numbered sections 1–8 in order. */
+:root{
+  --bg:#f2f3f5; --surface:#ffffff; --surface-2:#f7f8fa; --ink:#14161b; --muted:#5a5f6d; --faint:#8a8f9c; --line:#dfe2e8;
+  --accent:#b4162f; --accent-soft:#fbe9ec; --saffron:#a86f00; --saffron-soft:#fdf3dc;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --grid:#e8eaee;
+  --good:#0a7d0a; --good-soft:#e5f4e5; --warn:#9a6a00; --warn-soft:#fdf1d6; --crit:#c0392f; --crit-soft:#fbe7e5;
+  --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f1217; --surface:#171b22; --surface-2:#1c2129; --ink:#eceef2; --muted:#a6acb9; --faint:#7d8391; --line:#2a303a;
+  --accent:#f0566a; --accent-soft:#3a1a20; --saffron:#f2b533; --saffron-soft:#352a12;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --grid:#262b34;
+  --good:#3fc43f; --good-soft:#15301a; --warn:#f2b533; --warn-soft:#352a12; --crit:#f06a5f; --crit-soft:#3a1a18;
+  color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#0f1217; --surface:#171b22; --surface-2:#1c2129; --ink:#eceef2; --muted:#a6acb9; --faint:#7d8391; --line:#2a303a;
+  --accent:#f0566a; --accent-soft:#3a1a20; --saffron:#f2b533; --saffron-soft:#352a12;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --grid:#262b34;
+  --good:#3fc43f; --good-soft:#15301a; --warn:#f2b533; --warn-soft:#352a12; --crit:#f06a5f; --crit-soft:#3a1a18;
+  color-scheme:dark; }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:64px}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.55}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--surface)}
+.wrap{max-width:1240px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display); text-wrap:balance; margin:0; letter-spacing:-0.01em}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+/* rail */
+.rail{position:sticky; top:env(safe-area-inset-top,0px); z-index:9; background:var(--surface); border-bottom:1px solid var(--line)}
+.rail .wrap{display:flex; align-items:center; gap:16px; padding-block:10px}
+.rail .brand{font-family:var(--f-display); font-weight:800; white-space:nowrap}
+.rail .brand span{color:var(--accent)}
+.rail nav{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; min-width:0}
+.rail nav::-webkit-scrollbar{display:none}
+.rail nav a{font-size:13px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; white-space:nowrap}
+.rail nav a:hover{background:var(--surface-2); color:var(--ink)}
+.rail nav a b{font-family:var(--f-mono); font-weight:500; color:var(--faint); margin-right:4px}
+
+/* hero */
+.hero{padding-block:36px 28px; display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:32px; align-items:end}
+.hero h1{font-size:clamp(36px,6vw,64px); font-weight:800; line-height:1}
+.hero h1 em{font-style:normal; color:var(--accent)}
+.hero .sub{margin-top:12px; color:var(--muted); font-size:16px; max-width:60ch}
+.tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px}
+.tag{font-family:var(--f-mono); font-size:12px; padding:3px 8px; border:1px solid var(--line); border-radius:4px; background:var(--surface); color:var(--muted)}
+.team{font-size:13px; color:var(--muted); border-left:3px solid var(--saffron); padding-left:14px; display:grid; gap:4px}
+.team strong{color:var(--ink); font-weight:600}
+.flag{display:inline-block; width:22px; height:15px; vertical-align:-2px; margin-right:6px; border-radius:2px; background:linear-gradient(#aa151b 0 25%, #f1bf00 25% 75%, #aa151b 75%)}
+
+/* term sheet strip */
+.sheet{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-bottom:28px}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px}
+.panel-h{display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-bottom:12px; flex-wrap:wrap}
+.kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px 16px}
+.kpi .l{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted)}
+.kpi .v{font-family:var(--f-display); font-weight:700; font-size:22px; line-height:1.15; font-variant-numeric:tabular-nums}
+.kpi .n{font-size:11.5px; color:var(--faint)}
+.up{color:var(--good)} .down{color:var(--crit)}
+
+/* risk cards */
+.risks{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-bottom:12px}
+.risk{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px; display:grid; gap:8px; align-content:start}
+.risk h3{font-size:15px; font-weight:700}
+.pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--f-mono); font-size:11.5px; font-weight:500; padding:3px 9px; border-radius:999px; width:max-content}
+.pill::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor}
+.pill.good{color:var(--good); background:var(--good-soft)}
+.pill.warn{color:var(--warn); background:var(--warn-soft)}
+.pill.crit{color:var(--crit); background:var(--crit-soft)}
+.pill.info{color:var(--saffron); background:var(--saffron-soft)}
+.risk p, .risk li{font-size:13.5px; color:var(--muted)}
+.risk ul{margin:0; padding-left:18px; display:grid; gap:4px}
+.risk b{color:var(--ink); font-weight:600}
+
+/* sections */
+section.sec{padding-block:40px 8px; border-top:1px solid var(--line); margin-top:28px}
+.sec-h{display:grid; grid-template-columns:auto minmax(0,1fr); gap:6px 18px; align-items:baseline; margin-bottom:22px}
+.sec-n{font-family:var(--f-display); font-weight:800; font-size:44px; line-height:1; color:var(--accent)}
+.sec-h h2{font-size:clamp(22px,3vw,30px); font-weight:700}
+.sec-h p{grid-column:2; color:var(--muted); max-width:75ch}
+.grid{display:grid; gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g-wide{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+.panel h3{font-size:15px; font-weight:700}
+.panel .cap{font-size:12px; color:var(--faint); margin-top:10px}
+.prose{display:grid; gap:10px; font-size:14px; color:var(--muted)}
+.prose b{color:var(--ink); font-weight:600}
+.prose ul{margin:0; padding-left:18px; display:grid; gap:6px}
+.chart{position:relative; height:260px}
+.chart.tall{height:300px}
+.chart.short{height:210px}
+
+/* tables */
+.tbl{overflow-x:auto; margin-inline:-4px}
+table{border-collapse:collapse; width:100%; font-size:13px}
+th,td{padding:7px 8px; text-align:right; border-bottom:1px solid var(--line); white-space:nowrap}
+th:first-child, td:first-child{text-align:left}
+thead th{font-family:var(--f-mono); font-weight:500; font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); background:var(--surface-2)}
+td{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+td.txt{font-family:var(--f-body); white-space:normal; text-align:left}
+tr.hl td{background:var(--accent-soft); font-weight:500}
+tr.tot td{font-weight:600; border-top:2px solid var(--ink)}
+
+/* result blocks */
+.results{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px}
+.res{border:1px solid var(--line); border-radius:8px; padding:12px 14px; background:var(--surface-2)}
+.res .l{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted)}
+.res .v{font-family:var(--f-display); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.2}
+.res .n{font-size:12px; color:var(--faint)}
+.res.key{border-color:var(--accent); background:var(--accent-soft)}
+.formula{font-family:var(--f-mono); font-size:13px; background:var(--surface-2); border:1px dashed var(--line); border-radius:8px; padding:10px 12px; overflow-x:auto; white-space:nowrap}
+.note{font-size:13px; border-radius:8px; padding:12px 14px; background:var(--saffron-soft); color:var(--ink)}
+.note b{color:var(--saffron)}
+.pending{border:1px dashed var(--line); border-radius:10px; padding:18px; color:var(--muted); background:transparent}
+.bars{display:grid; gap:10px}
+.bar-row{display:grid; grid-template-columns:110px minmax(0,1fr) 64px; gap:10px; align-items:center; font-size:13px}
+.bar-track{height:10px; background:var(--grid); border-radius:999px; overflow:hidden}
+.bar-fill{height:100%; background:var(--s1); border-radius:999px}
+.bar-row .mono{text-align:right}
+
+footer{border-top:1px solid var(--line); margin-top:40px; padding-block:28px 40px; font-size:12.5px; color:var(--muted)}
+footer ol{padding-left:18px; display:grid; gap:3px; margin:10px 0 0; columns:2; column-gap:32px}
+footer li{break-inside:avoid; overflow-wrap:anywhere}
+
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .sheet, .g2, .g-wide{grid-template-columns:1fr}
+  .risks, .g3{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sec-n{font-size:34px}
+  .sec-h p{grid-column:1 / -1}
+  footer ol{columns:1}
+  .rail .brand{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="rail">
+  <div class="wrap">
+    <div class="brand">GOOGL <span>·</span> ES</div>
+    <nav aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#s1"><b>1</b>Company</a>
+      <a href="#s2"><b>2</b>Country</a>
+      <a href="#s3"><b>3</b>FRA</a>
+      <a href="#s4"><b>4</b>Bond</a>
+      <a href="#s5"><b>5</b>FX forwards</a>
+      <a href="#s6"><b>6</b>IRS</a>
+      <a href="#s8"><b>8</b>Recommendation</a>
+      <a href="#sources">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="hero" id="overview">
+  <div>
+    <div class="eyebrow">FINA 405 · Debt Issuance in Global Markets · Team 5 · FA26</div>
+    <h1>Alphabet in <em>Spain</em></h1>
+    <p class="sub">A 5-year, EUR-denominated fixed-rate bond in the Spanish capital market: who Alphabet is, what Spain looks like, and what the Scenario 0 numbers say about cost and hedging.</p>
+    <div class="tags">
+      <span class="tag">NASDAQ: GOOGL</span>
+      <span class="tag">Communication Services · Internet Content</span>
+      <span class="tag"><span class="flag" aria-hidden="true"></span>Spain · EUR</span>
+      <span class="tag">Coupon 4.0% s.a.</span>
+      <span class="tag">Data as of Oct 20, 2026</span>
+    </div>
+  </div>
+  <div class="team">
+    <div class="eyebrow">Team</div>
+    <div><strong>University of San Diego</strong> · Sasha Pasquini, Mazzaria Gonzalez, Sophia Skvarca, Molly Marley</div>
+    <div><strong>Tecnológico de Monterrey</strong> · Rubén Martínez, Miguel Villarreal, Mateo Vargas</div>
+  </div>
+</div>
+
+<div class="sheet">
+  <div class="panel">
+    <div class="panel-h"><span class="eyebrow">Company · Alphabet Inc.</span><span class="eyebrow">USD</span></div>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Last price</div><div class="v">$340.28</div><div class="n">Close Oct 20, 2026</div></div>
+      <div class="kpi"><div class="l">Market cap</div><div class="v">$4.2T</div><div class="n">≈ $4.16–4.21T</div></div>
+      <div class="kpi"><div class="l">P/E (TTM)</div><div class="v">17.1x</div><div class="n">Fwd ≈ 23–26x</div></div>
+      <div class="kpi"><div class="l">Credit rating</div><div class="v">AA+ / Aa2</div><div class="n">S&amp;P / Moody's</div></div>
+      <div class="kpi"><div class="l">Revenue FY25</div><div class="v">$402.8B</div><div class="n up">▲ 15.1% YoY</div></div>
+      <div class="kpi"><div class="l">Revenue LTM</div><div class="v">$445.9B</div><div class="n">Jul-25 → Jun-26</div></div>
+      <div class="kpi"><div class="l">Op. margin FY25</div><div class="v">32.0%</div><div class="n">Q2-26: 34%</div></div>
+      <div class="kpi"><div class="l">LT debt</div><div class="v">$98.2B</div><div class="n">Jun 30, 2026 (10-Q)</div></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-h"><span class="eyebrow"><span class="flag" aria-hidden="true"></span>Country · Spain</span><span class="eyebrow">EUR</span></div>
+    <div class="kpis">
+      <div class="kpi"><div class="l">GDP growth 2026e</div><div class="v">2.7%</div><div class="n">~2.3% by 2028</div></div>
+      <div class="kpi"><div class="l">CPI (Sep-26)</div><div class="v down">4.9%</div><div class="n">Aug 4.3% · ECB goal 2%</div></div>
+      <div class="kpi"><div class="l">ECB main rate</div><div class="v">2.65%</div><div class="n up">▲ 25 bp on Sep 10</div></div>
+      <div class="kpi"><div class="l">Spain 10Y</div><div class="v">4.05%</div><div class="n">Highest since 2013</div></div>
+      <div class="kpi"><div class="l">EUR/USD market</div><div class="v">1.1215</div><div class="n">ECB ref., Oct 20</div></div>
+      <div class="kpi"><div class="l">Scenario 0 spot</div><div class="v">0.9000</div><div class="n">USD per EUR (course)</div></div>
+      <div class="kpi"><div class="l">Unemployment</div><div class="v">9.87%</div><div class="n">Q2-26, lowest since 2008</div></div>
+      <div class="kpi"><div class="l">Sovereign rating</div><div class="v">A+</div><div class="n">S&amp;P · Fitch A · Moody's A3</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="risks">
+  <div class="risk">
+    <span class="eyebrow">FX risk · issuing in EUR</span>
+    <h3>Euro moves change the USD value of the bond</h3>
+    <span class="pill warn">Medium</span>
+    <p>The euro floats freely against the dollar. A <b>10% euro appreciation</b> raises the USD value of the liability by <b>+11.11%</b> (Section 5). Alphabet is a <b>net receiver of EUR</b>: EMEA was 29% of FY25 revenue, so EUR coupons are partly paid out of EUR income.</p>
+  </div>
+  <div class="risk">
+    <span class="eyebrow">Interest rate &amp; sovereign risk · A+</span>
+    <h3>Strong sovereign, rising rates</h3>
+    <span class="pill warn">Low–medium</span>
+    <p>Spain was upgraded to <b>A+</b> by S&amp;P. Credit risk is low, but rates are moving up: the ECB hiked to 2.65% and the 10Y yield reached 4.05% as inflation climbed to 4.9%. Locking a fixed coupon now protects against further hikes.</p>
+  </div>
+  <div class="risk">
+    <span class="eyebrow">Hedging toolkit · local-currency debt</span>
+    <h3>Instruments used in this project</h3>
+    <ul>
+      <li><b>FX forwards</b> (IRP) lock the USD value of every coupon and the principal (§5).</li>
+      <li><b>FRAs</b> 12×24 and 36×60 lock future EUR borrowing and lending rates (§3).</li>
+      <li><b>IRS</b>: receive fixed, pay EURIBOR 6M if rates are expected to fall (§6).</li>
+      <li><b>Cross-currency swap</b> as a single-contract alternative to a forward strip.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ SECTION 1 ============ -->
+<section class="sec" id="s1">
+  <div class="sec-h">
+    <div class="sec-n">1</div>
+    <h2>Company analysis</h2>
+    <p>Alphabet's business lines, three years of audited financials, its position in Spain and the risks that drive the financing choice.</p>
+  </div>
+
+  <div class="grid g-wide">
+    <div class="panel">
+      <h3>Business overview</h3>
+      <div class="prose" style="margin-top:10px">
+        <p>Alphabet reports <b>three segments</b>: <b>Google Services</b> (Search, YouTube, Android, Chrome, devices, subscriptions and Google Play), <b>Google Cloud</b> (infrastructure, Workspace and AI platforms) and <b>Other Bets</b> (Waymo, Verily and others). Advertising across Search and YouTube is still the main revenue driver, and Cloud is the fastest-growing unit: <b>+82% YoY in Q2-26</b> to $24.8B.</p>
+        <p><b>Why Spain?</b> Spain is one of Europe's fastest-growing advertising markets, with ad investment above <b>€11.9B</b> and digital ad growth around <b>14.7% CAGR</b>, ahead of the UK, Germany, France and Italy. Google runs its <b>European AI hub in Madrid</b> and a Madrid cloud region, and the digital economy is about <b>26% of Spanish GDP</b>.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>FY2025 revenue by segment</h3>
+      <div class="bars" style="margin-top:14px" id="segBars"></div>
+      <div class="cap">USD billions. Operating income: Services $139.4B · Cloud $13.9B · Other Bets −$7.5B. Source: Alphabet 10-K FY2025, Note 15.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="panel">
+      <h3>Financial statement analysis</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>USD M</th><th>2023</th><th>2024</th><th>2025</th><th>Peers</th></tr></thead>
+          <tbody>
+            <tr><td>Revenue</td><td>307,394</td><td>350,018</td><td>402,836</td><td>—</td></tr>
+            <tr><td>Revenue growth</td><td>8.7%</td><td>13.9%</td><td>15.1%</td><td>~14.5%</td></tr>
+            <tr><td>Operating margin</td><td>27.4%</td><td>32.1%</td><td>32.0%</td><td>~30.5%</td></tr>
+            <tr><td>Net margin</td><td>24.0%</td><td>28.6%</td><td>32.8%</td><td>~24.8%</td></tr>
+            <tr><td>LT debt / equity</td><td>4.7%</td><td>3.3%</td><td>11.2%</td><td>~29%</td></tr>
+            <tr><td>Net debt / EBITDA</td><td>−1.00x</td><td>−0.65x</td><td>−0.59x</td><td>~+0.10x</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cap">Negative net debt/EBITDA means a <b>net cash</b> position. Sources: Alphabet 10-K / Q4-25 earnings release; peer median from team research.</div>
+    </div>
+    <div class="panel">
+      <h3>Annual financials</h3>
+      <div class="chart" style="margin-top:8px"><canvas id="chFin" aria-label="Revenue, operating income and net income 2023 to 2025"></canvas></div>
+      <div class="cap">USD billions. FY ends Dec 31. Source: Alphabet 10-K.</div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:16px">
+    <div class="panel">
+      <h3>Balance sheet snapshot · Jun 30, 2026</h3>
+      <div class="results" style="margin-top:12px">
+        <div class="res"><div class="l">Total assets</div><div class="v">$922.0B</div></div>
+        <div class="res"><div class="l">Equity</div><div class="v">$640.5B</div></div>
+        <div class="res"><div class="l">Cash + securities</div><div class="v">$242.5B</div></div>
+        <div class="res"><div class="l">LT debt / equity</div><div class="v">15.3%</div></div>
+        <div class="res"><div class="l">Current ratio</div><div class="v">2.72x</div></div>
+        <div class="res"><div class="l">Debt / assets</div><div class="v">10.6%</div></div>
+      </div>
+      <div class="cap">Long-term debt more than doubled, from $46.5B (Dec-25) to $98.2B, to fund AI and data-center capex. Source: Alphabet 10-Q Q2-26.</div>
+    </div>
+    <div class="panel">
+      <h3>Balance sheet evolution</h3>
+      <div class="chart short" style="margin-top:8px"><canvas id="chBS" aria-label="Total assets, liabilities and equity"></canvas></div>
+      <div class="cap">USD billions. Dec 31 each year, plus Jun 30, 2026.</div>
+    </div>
+    <div class="panel">
+      <h3>Revenue by region · FY2025</h3>
+      <div class="bars" style="margin-top:14px" id="geoBars"></div>
+      <div class="cap">Share of revenue before hedging. EMEA (which includes Spain) is $117.2B. Source: Q4-25 earnings release.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="panel">
+      <h3>Capex vs. free cash flow</h3>
+      <div class="chart" style="margin-top:8px"><canvas id="chCapex" aria-label="Capex and free cash flow"></canvas></div>
+      <div class="cap">USD billions. 2026e–2027e are Bloomberg consensus. Spending on AI now exceeds internal cash generation, which is <b>why Alphabet needs to borrow</b>. Source: Bloomberg FA; Alphabet 10-K.</div>
+    </div>
+    <div class="panel">
+      <h3>Existing debt structure</h3>
+      <div class="prose" style="margin-top:10px">
+        <ul>
+          <li><b>Mostly fixed-rate, long-dated</b> senior notes with coupons of about <b>3.3%–4.9%</b>; only a small floating portion.</li>
+          <li><b>EUR debt already outstanding</b>: a <b>€9B six-tranche deal</b> in May 2026 (2030–2063, coupons 3.2%–4.8%) after EUR tranches issued in Nov 2025. A new Spanish EUR bond extends an existing EUR curve.</li>
+          <li><b>Bond for this project</b>: 10% of LT debt = <b>$9,816.5M</b>, or <b>€10,907.2M</b> at the Scenario 0 spot.</li>
+          <li>Alphabet's 10-K lists forwards, options, cross-currency swaps and <b>foreign-currency debt</b> as its FX hedging tools, so EUR issuance fits its existing policy.</li>
+        </ul>
+      </div>
+      <div class="cap">Sources: Alphabet 8-K (May 11, 2026), 10-K FY2025 (Item 7A), 10-Q Q2-26.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="panel">
+      <h3>Market position · Spain search share</h3>
+      <div class="bars" style="margin-top:14px" id="searchBars"></div>
+      <div class="cap">Sep 2025–Aug 2026. Source: StatCounter. Google is effectively the default search engine in Spain.</div>
+    </div>
+    <div class="panel">
+      <h3>Peer comparison</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Ticker</th><th>Company</th><th>Mkt cap</th><th>P/E (TTM)</th><th>Spain overlap</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td>GOOGL</td><td class="txt">Alphabet</td><td>$4.2T</td><td>17.1x</td><td class="txt">Search, YouTube, Cloud</td></tr>
+            <tr><td>AAPL</td><td class="txt">Apple</td><td>$5.0T</td><td>39.4x</td><td class="txt">Devices, App Store</td></tr>
+            <tr><td>MSFT</td><td class="txt">Microsoft</td><td>$3.9T</td><td>29.5x</td><td class="txt">Bing, Azure Madrid</td></tr>
+            <tr><td>AMZN</td><td class="txt">Amazon</td><td>$2.7T</td><td>20.1x</td><td class="txt">AWS Aragón, Ads</td></tr>
+            <tr><td>META</td><td class="txt">Meta</td><td>$1.8T</td><td>26.7x</td><td class="txt">Social ads</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cap">Approximate, Oct 16–20, 2026. Sources: Yahoo Finance, CompaniesMarketCap, FinanceCharts. Alphabet trades at the lowest P/E in the group despite the highest net margin.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="panel">
+      <h3>Industry overview</h3>
+      <div class="prose" style="margin-top:10px">
+        <ul>
+          <li><b>Growth:</b> Spain's cloud market grows 11–18% a year and digital advertising 13%+.</li>
+          <li><b>Cyclicality:</b> mixed. Ad budgets follow the economy, while cloud and IT services bring stable, recurring revenue.</li>
+          <li><b>Capital intensity:</b> high. Data centers need large upfront investment funded by the parent, debt and project financing.</li>
+          <li><b>Regulation:</b> strict. GDPR, the EU Digital Markets Act and Spain's 3% Digital Services Tax raise compliance costs.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Key business risks, linked to Sections 3–7</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Risk</th><th>Exposure</th><th>Where we measure it</th></tr></thead>
+          <tbody>
+            <tr><td>FX</td><td class="txt">Net receiver of EUR; a stronger USD cuts translated Spanish earnings</td><td class="txt">§5 forwards, §7d</td></tr>
+            <tr><td>Interest rate</td><td class="txt">ECB hikes raise new borrowing costs</td><td class="txt">§3 FRA, §6 IRS, §7c</td></tr>
+            <tr><td>Inflation</td><td class="txt">Energy and data-center costs up; ad budgets may shrink</td><td class="txt">§2, §7b</td></tr>
+            <tr><td>Regulatory</td><td class="txt">GDPR/DMA limits and digital taxes</td><td class="txt">§1, §8</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section class="sec" id="s2">
+  <div class="sec-h">
+    <div class="sec-n">2</div>
+    <h2>Country overview · Spain</h2>
+    <p>Inflation, the euro, the rate structure, political and sovereign risk, and what could change over the next five years.</p>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel">
+      <h3>Inflation dynamics</h3>
+      <div class="chart" style="margin-top:8px"><canvas id="chCPI" aria-label="Spain CPI year over year"></canvas></div>
+      <div class="cap">Spain CPI YoY, %. Dashed line: ECB 2% target. Source: Bloomberg SPIPCYOY; INE (Aug–Sep 2026).</div>
+      <div class="prose" style="margin-top:10px"><p>Inflation cooled after the 2022–23 shock but has jumped again to <b>4.9% in September 2026</b>, the highest since February 2023, driven by fuel and air travel after the Middle East conflict. Core inflation is 3.1%.</p></div>
+    </div>
+    <div class="panel">
+      <h3>Real GDP growth</h3>
+      <div class="chart" style="margin-top:8px"><canvas id="chGDP" aria-label="Spain real GDP growth"></canvas></div>
+      <div class="cap">Annual %, 2026 is a Bloomberg consensus estimate. Sources: INE, World Bank, Bloomberg ECST.</div>
+      <div class="prose" style="margin-top:10px"><p>Spain has been one of the euro area's fastest-growing economies since the pandemic. Unemployment fell to <b>9.87%</b> in Q2-26, down from 11.3% two years earlier.</p></div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:16px">
+    <div class="panel">
+      <h3>Exchange rate regime</h3>
+      <span class="pill info" style="margin-top:10px">Free float · euro area</span>
+      <div class="prose" style="margin-top:10px">
+        <p>Spain uses the euro, which floats freely against the USD. It is driven by ECB policy, rate differentials and inflation expectations. Market EUR/USD is <b>1.12</b> (Oct 20), and analysts see about <b>1.16–1.17</b> by end-2026.</p>
+        <p>The course's <b>Scenario 0</b> uses <b>0.90 USD per EUR</b>. All calculations in Sections 3–5 use that rate.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Interest rate structure</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <tbody>
+            <tr><td>ECB deposit facility</td><td>2.50%</td></tr>
+            <tr><td>ECB main refinancing</td><td>2.65%</td></tr>
+            <tr><td>ECB marginal lending</td><td>2.90%</td></tr>
+            <tr><td>Spain 1Y (market)</td><td>2.83%</td></tr>
+            <tr><td>Spain 10Y (market)</td><td>4.05%</td></tr>
+            <tr><td>10Y spread vs Bund</td><td>~55 bp</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cap">The market curve slopes <b>upward</b> (10Y − 1Y ≈ +122 bp). The course's Scenario 0 curve slopes <b>downward</b> (3.00% → 2.52%). Sources: ECB (Sep 10, 2026), Bloomberg, Trading Economics.</div>
+    </div>
+    <div class="panel">
+      <h3>Political &amp; sovereign risk</h3>
+      <div class="results" style="margin-top:12px">
+        <div class="res"><div class="l">S&amp;P</div><div class="v">A+</div><div class="n">Stable</div></div>
+        <div class="res"><div class="l">Fitch / Moody's</div><div class="v">A / A3</div><div class="n">Stable</div></div>
+        <div class="res"><div class="l">Freedom House</div><div class="v">90/100</div><div class="n">"Free"</div></div>
+      </div>
+      <div class="prose" style="margin-top:10px"><p>Spain is a parliamentary monarchy with strong rule of law. Trust in government (37%) is slightly below the OECD average, public debt is still high, and EU–US trade tensions add risk.</p></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="panel">
+      <h3>Forward-looking risk assessment</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Driver</th><th>Now</th><th>Outlook</th><th>Signal</th></tr></thead>
+          <tbody>
+            <tr><td>Growth</td><td>2.7%</td><td class="txt">Slows to ~2.3% by 2028, still solid</td><td><span class="pill good">Positive</span></td></tr>
+            <tr><td>Inflation</td><td>4.9%</td><td class="txt">Stays above the 2% target</td><td><span class="pill crit">Risk</span></td></tr>
+            <tr><td>ECB rates</td><td>2.65%</td><td class="txt">More hikes likely (Dec, Mar)</td><td><span class="pill warn">Watch</span></td></tr>
+            <tr><td>EUR/USD</td><td>1.12</td><td class="txt">Stable to slightly stronger euro</td><td><span class="pill warn">Watch</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>What it means for Alphabet</h3>
+      <div class="prose" style="margin-top:10px">
+        <p><b>Base case:</b> Spain keeps growing, but prices and rates stay high and the euro moves little against the dollar.</p>
+        <p><b>What could go wrong:</b> higher energy prices from the Middle East conflict, a faster ECB hiking cycle, EU–US and EU–China trade disputes, and volatile equity markets.</p>
+        <p><b>Financing takeaway:</b> with rates rising, a <b>fixed-rate EUR bond issued now</b> locks today's cost, and EUR debt matches Alphabet's EUR revenue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section class="sec" id="s3">
+  <div class="sec-h">
+    <div class="sec-n">3</div>
+    <h2>FRA transactions &amp; interest rate risk</h2>
+    <p>A EUR payment in 1–2 years (12×24 FRA) and a EUR receipt in 3–5 years (36×60 FRA), priced off the Scenario 0 Spain curve with semiannual compounding.</p>
+  </div>
+  <div class="grid g2">
+    <div class="panel">
+      <h3>Accumulation factors</h3>
+      <div class="formula" style="margin-top:10px">AF(t) = (1 + r<sub>t</sub>/2)<sup>2t</sup> &nbsp;·&nbsp; FRA = 2 × [ (AF<sub>end</sub>/AF<sub>start</sub>)<sup>1/(2·(end−start))</sup> − 1 ]</div>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Maturity</th><th>Spot rate</th><th>Periods</th><th>Accumulation factor</th></tr></thead>
+          <tbody>
+            <tr><td>1.0 yr</td><td>2.90%</td><td>2</td><td>1.029210</td></tr>
+            <tr><td>2.0 yr</td><td>2.75%</td><td>4</td><td>1.056145</td></tr>
+            <tr><td>3.0 yr</td><td>2.65%</td><td>6</td><td>1.082180</td></tr>
+            <tr><td>5.0 yr</td><td>2.52%</td><td>10</td><td>1.133390</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>FRA rates</h3>
+      <div class="results" style="margin-top:12px">
+        <div class="res key"><div class="l">12×24 FRA</div><div class="v">2.600%</div><div class="n">Fwd factor 1.026170 · vs 2Y spot 2.75%</div></div>
+        <div class="res key"><div class="l">36×60 FRA</div><div class="v">2.325%</div><div class="n">Fwd factor 1.047320 · vs 5Y spot 2.52%</div></div>
+      </div>
+      <div class="prose" style="margin-top:12px">
+        <p><b>12×24 · borrowing cost.</b> Alphabet buys the FRA (pays fixed, receives floating) to lock <b>2.60%</b> on EUR it must borrow in year 1–2. If rates rise, the FRA pays out and offsets the higher cost.</p>
+        <p><b>36×60 · lending return.</b> Alphabet sells the FRA (receives fixed, pays floating) to lock <b>2.325%</b> on EUR it will invest in years 3–5.</p>
+        <p>Both FRA rates are <b>below</b> current spot rates because the Scenario 0 curve is inverted: the market prices lower future rates. An FRA fixes the rate only, not the principal or the EUR/USD rate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 ============ -->
+<section class="sec" id="s4">
+  <div class="sec-h">
+    <div class="sec-n">4</div>
+    <h2>Domestic bond issuance</h2>
+    <p>Five-year fixed-rate EUR bond, 4.0% annual coupon paid semiannually, face value equal to 10% of Alphabet's long-term debt.</p>
+  </div>
+  <div class="grid g-wide">
+    <div class="panel">
+      <h3>Local-currency cash flows &amp; pricing</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Period</th><th>Years</th><th>Spain zero</th><th>Cash flow (€M)</th><th>PV (€M)</th></tr></thead>
+          <tbody id="bondRows"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="panel">
+        <h3>Bond parameters</h3>
+        <div class="tbl" style="margin-top:8px">
+          <table>
+            <tbody>
+              <tr><td>LT debt (Jun 30, 2026)</td><td>$98,165 M</td></tr>
+              <tr><td>Face value (10%)</td><td>$9,816.50 M</td></tr>
+              <tr><td>Scenario 0 spot</td><td>0.90 USD/EUR</td></tr>
+              <tr><td>Face value (EUR)</td><td>€10,907.22 M</td></tr>
+              <tr><td>Coupon</td><td>4.0% · €218.14 M s.a.</td></tr>
+              <tr><td>Maturity</td><td>5 yrs · 10 periods</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cap">Face (EUR) = $9,816.5M ÷ 0.90. Source: Alphabet 10-Q Q2-26.</div>
+      </div>
+      <div class="results">
+        <div class="res key"><div class="l">Bond price</div><div class="v">€11,655.05M</div><div class="n">106.86% of face</div></div>
+        <div class="res key"><div class="l">EUR YTM</div><div class="v">2.531%</div><div class="n">vs 4.0% coupon</div></div>
+        <div class="res"><div class="l">Premium</div><div class="v">€747.83M</div><div class="n">Price − face</div></div>
+      </div>
+      <div class="note"><b>Why a premium?</b> The 4.0% coupon is above every Spain zero rate (2.52%–3.00%), so investors pay more than face. Alphabet receives €11,655M today but repays only €10,907M at maturity. That extra cash offsets the above-market coupon, so the true cost of the debt is the <b>2.53% YTM</b>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 ============ -->
+<section class="sec" id="s5">
+  <div class="sec-h">
+    <div class="sec-n">5</div>
+    <h2>FX forwards &amp; cash flow hedging</h2>
+    <p>IRP forwards for every coupon date convert the EUR cash flows into locked USD amounts, discounted on the US curve.</p>
+  </div>
+  <div class="formula">F(t) = S₀ × (1 + i<sub>USD</sub>/2)<sup>2t</sup> / (1 + i<sub>EUR</sub>/2)<sup>2t</sup> &nbsp;&nbsp;·&nbsp;&nbsp; S₀ = 0.90 USD per EUR (USD is the quote currency)</div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="panel">
+      <h3>Scenario 0 yield curves</h3>
+      <div class="chart" style="margin-top:8px"><canvas id="chCurves" aria-label="Spain and US Scenario 0 yield curves"></canvas></div>
+      <div class="cap">Annual %, semiannual compounding. US rates sit 105–113 bp above Spain at every maturity. Source: FINA405_Market_data_v2.</div>
+    </div>
+    <div class="panel">
+      <h3>IRP forward curve</h3>
+      <div class="chart" style="margin-top:8px"><canvas id="chFwd" aria-label="IRP forward USD per EUR"></canvas></div>
+      <div class="cap">USD per EUR. Higher US rates make the euro trade at a <b>forward premium</b>: 0.9049 at 6 months, rising to 0.9515 at 5 years.</div>
+    </div>
+  </div>
+
+  <div class="grid g-wide" style="margin-top:16px">
+    <div class="panel">
+      <h3>Hedged USD cash flows</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Year</th><th>US yield</th><th>Fwd USD/EUR</th><th>USD CF ($M)</th><th>PV ($M)</th></tr></thead>
+          <tbody id="fwdRows"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="results">
+        <div class="res key"><div class="l">USD bond price</div><div class="v">$10,489.55M</div><div class="n">Sum of PVs</div></div>
+        <div class="res key"><div class="l">USD YTM (hedged)</div><div class="v">3.659%</div><div class="n">≈ US 5Y 3.65%</div></div>
+      </div>
+      <div class="note"><b>IRP identity holds.</b> EUR price × S₀ = €11,655.05M × 0.90 = <b>$10,489.55M</b>. Residual = 0.</div>
+      <div class="panel">
+        <h3>How the hedge works</h3>
+        <div class="prose" style="margin-top:8px">
+          <p>Alphabet signs ten forwards to <b>buy EUR</b> on each coupon date at the rates above. Whatever happens to spot, it pays a known USD amount, so the forward gain or loss offsets the spot move.</p>
+          <p>Once hedged, the bond costs <b>3.66% in USD</b>, almost exactly the US 5-year rate. Under IRP the lower EUR yield is fully offset by the forward premium. The benefit of EUR issuance is the <b>natural hedge</b> and investor diversification, not a cheaper rate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="panel">
+      <h3>FX sensitivity · 10% euro appreciation</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Metric</th><th>Initial</th><th>After</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>Spot USD per EUR</td><td>0.9000</td><td>1.0000</td><td>+11.11%</td></tr>
+            <tr><td class="txt">(A) EUR price × new spot</td><td>$10,489.55M</td><td>$11,655.05M</td><td>+11.11%</td></tr>
+            <tr><td class="txt">(B) New IRP forwards, discounted at US yields</td><td>$10,489.55M</td><td>$11,655.05M</td><td>+11.11%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cap">10% appreciation = EUR per USD falls 10% (1.111 → 1.000), so USD per EUR rises 0.90 → 1.00.</div>
+    </div>
+    <div class="panel">
+      <h3>Why both methods agree, and the trade-offs</h3>
+      <div class="prose" style="margin-top:8px">
+        <p>Every forward is the spot rate times a ratio of interest factors. Scaling spot by 1/0.9 scales every forward, and so every USD cash flow, by the same 11.11%. Under IRP, Method B collapses to Method A.</p>
+        <ul>
+          <li><b>Forwards:</b> no upfront cost, exact match to coupon dates; but they remove any upside and carry counterparty and rollover needs.</li>
+          <li><b>Currency options:</b> keep upside if the euro weakens, but cost a premium.</li>
+          <li><b>Money-market hedge:</b> same result as forwards under IRP, but uses balance sheet.</li>
+          <li><b>Cross-currency swap:</b> one contract for all ten flows; standard for a 5-year bond.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 ============ -->
+<section class="sec" id="s6">
+  <div class="sec-h">
+    <div class="sec-n">6</div>
+    <h2>Interest rate swap strategy</h2>
+    <p>If EUR rates are expected to fall, Alphabet can swap the fixed coupon into floating EURIBOR 6M.</p>
+  </div>
+  <div class="grid g2">
+    <div class="panel">
+      <h3>Swap structure</h3>
+      <div class="tbl" style="margin-top:10px">
+        <table>
+          <tbody>
+            <tr><td>Notional</td><td>€10,907.22 M</td></tr>
+            <tr><td>Alphabet receives</td><td>Fixed 2.528% (5Y par swap)</td></tr>
+            <tr><td>Alphabet pays</td><td>EURIBOR 6M</td></tr>
+            <tr><td>Frequency</td><td>Semiannual, same dates as coupons</td></tr>
+            <tr><td>Maturity</td><td>5 years</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cap">Par swap rate from Scenario 0 discount factors: 2 × (1 − DF₅) ÷ Σ DF = 2.528%.</div>
+    </div>
+    <div class="panel">
+      <h3>Effective cost of debt</h3>
+      <div class="formula" style="margin-top:10px">Cost = YTM 2.531% − swap fixed 2.528% + EURIBOR 6M ≈ EURIBOR 6M + 0.3 bp</div>
+      <div class="prose" style="margin-top:10px">
+        <p>After the swap the debt is effectively <b>floating</b>. If rates fall, Alphabet's cost falls with them. The trade-off is that it now carries interest rate risk again, and with the ECB currently <b>raising</b> rates, that bet is less attractive today.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 8 ============ -->
+<section class="sec" id="s8">
+  <div class="sec-h">
+    <div class="sec-n">8</div>
+    <h2>Deal recommendation</h2>
+    <p>Side-by-side comparison of the three financing strategies, based on Scenario 0 market data.</p>
+  </div>
+  <div class="panel">
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Strategy</th><th>All-in cost</th><th>Key risks retained</th><th>Hedge effectiveness</th></tr></thead>
+        <tbody>
+          <tr><td class="txt"><b>1 · Unhedged fixed EUR bond</b></td><td>2.53% in EUR; USD cost unknown</td><td class="txt">Full EUR/USD risk on coupons and principal</td><td><span class="pill crit">None</span></td></tr>
+          <tr class="hl"><td class="txt"><b>2 · Fixed bond + FX forwards</b></td><td>3.66% in USD, locked</td><td class="txt">Counterparty risk; no upside if the euro weakens</td><td><span class="pill good">Full</span></td></tr>
+          <tr><td class="txt"><b>3 · Floating after IRS</b></td><td>EURIBOR 6M + ~0 bp</td><td class="txt">Interest rate risk, plus FX risk unless also hedged</td><td><span class="pill warn">Partial</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose" style="margin-top:14px">
+      <p><b>Recommendation:</b> issue the 5-year fixed EUR bond now and hedge it with forwards (Strategy 2). Inflation at 4.9% and an ECB that is hiking argue against swapping to floating. Alphabet's AA+ rating and net cash position let it borrow at near risk-free rates, and part of the EUR exposure is already covered by EUR revenue, so the team could choose to hedge only the share not matched by Spanish and European income.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="sources">
+  <div class="wrap">
+    <div class="eyebrow">Sources</div>
+    <ol>
+      <li>Alphabet Inc. Form 10-K FY2025 and FY2024 — sec.gov (CIK 1652044)</li>
+      <li>Alphabet Inc. Form 10-Q, quarter ended Jun 30, 2026 — sec.gov</li>
+      <li>Alphabet Q4-2025 and Q2-2026 earnings releases (Form 8-K, Ex. 99.1)</li>
+      <li>Alphabet Form 8-K, EUR/CAD notes offering, May 11, 2026</li>
+      <li>FINA405_Market_data_v2.xlsx — Scenario 0 yield curves and spot</li>
+      <li>Team workbook Alphabet_Spain_Sections_3_4_5.xlsx</li>
+      <li>Bloomberg: ECST, SPIPCYOY, EURR2WES, BELTESPG, SPUNEMPR, EURUSD, FXFM, FA, DRSK, CRPR (Sep 2026)</li>
+      <li>INE — Consumer Price Index, Sep 2026; EPA Q2 2026</li>
+      <li>European Central Bank — monetary policy decision, Sep 10, 2026; euro reference rates, Oct 20, 2026</li>
+      <li>Trading Economics — Spain 10-year government bond yield</li>
+      <li>S&amp;P Global, Fitch, Moody's — Kingdom of Spain ratings</li>
+      <li>Freedom House — Freedom in the World: Spain</li>
+      <li>OECD — Government at a Glance 2025: Spain</li>
+      <li>StatCounter — Search engine market share, Spain, Sep 2025–Aug 2026</li>
+      <li>Mordor Intelligence — Spain ICT market; trade.gov — Spain digital economy</li>
+      <li>Yahoo Finance, CompaniesMarketCap, FinanceCharts — prices, market caps, P/E (Oct 2026)</li>
+    </ol>
+    <p style="margin-top:16px">FINA 405 · International Financial Management · Team 5 (Spain · Alphabet) · USD Knauss School of Business &amp; Tecnológico de Monterrey · Data as of October 20, 2026.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(function(){
+  const es=[3,2.9,2.8,2.75,2.7,2.65,2.6,2.58,2.55,2.52];
+  const us=[4.1,3.95,3.85,3.8,3.78,3.75,3.72,3.7,3.68,3.65];
+  const S0=0.9, faceUSD=98165*0.1, face=faceUSD/S0, cpn=face*0.04/2;
+  const fmt=(x,d=2)=>x.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+  // Sections 4–5 tables, computed from the Scenario 0 inputs
+  let pe=0, pu=0, bRows='', fRows='', fwd=[];
+  for(let k=1;k<=10;k++){
+    const cf=cpn+(k===10?face:0), r=es[k-1]/100, u=us[k-1]/100;
+    const pv=cf/Math.pow(1+r/2,k); pe+=pv;
+    const F=S0*Math.pow((1+u/2)/(1+r/2),k); fwd.push(F);
+    const ucf=cf*F, upv=ucf/Math.pow(1+u/2,k); pu+=upv;
+    bRows+=`<tr><td>${k}</td><td>${(k/2).toFixed(1)}</td><td>${es[k-1].toFixed(2)}%</td><td>${fmt(cf)}</td><td>${fmt(pv)}</td></tr>`;
+    fRows+=`<tr><td>${(k/2).toFixed(1)}</td><td>${us[k-1].toFixed(2)}%</td><td>${F.toFixed(4)}</td><td>${fmt(ucf)}</td><td>${fmt(upv)}</td></tr>`;
+  }
+  bRows+=`<tr class="tot"><td>Price</td><td></td><td></td><td></td><td>${fmt(pe)}</td></tr>`;
+  fRows+=`<tr class="tot"><td>Price</td><td></td><td></td><td></td><td>${fmt(pu)}</td></tr>`;
+  document.getElementById('bondRows').innerHTML=bRows;
+  document.getElementById('fwdRows').innerHTML=fRows;
+
+  // Simple bar lists
+  function bars(id, rows, unit, max){
+    document.getElementById(id).innerHTML=rows.map(([l,v,lab])=>
+      `<div class="bar-row"><span>${l}</span><div class="bar-track" role="img" aria-label="${l}: ${lab}"><div class="bar-fill" style="width:${Math.max(v/max*100,0.8)}%"></div></div><span class="mono">${lab}</span></div>`).join('');
+  }
+  bars('segBars',[['Google Services',342.7,'$342.7B'],['Google Cloud',58.7,'$58.7B'],['Other Bets',1.5,'$1.5B']],'',342.7);
+  const gT=402.963;
+  bars('geoBars',[['United States',194.229],['EMEA',117.152],['APAC',67.680],['Other Americas',23.902]].map(([l,v])=>[l,v,(v/gT*100).toFixed(1)+'%']),'',194.229);
+  bars('searchBars',[['Google',94.84,'94.84%'],['Bing',2.73,'2.73%'],['Yahoo',1.63,'1.63%'],['DuckDuckGo',0.42,'0.42%']],'',100);
+
+  if(!window.Chart) return;
+  const charts=[];
+  function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+  function base(yFmt){
+    const ink=tok('--muted'), grid=tok('--grid');
+    return {responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'top',align:'start',labels:{color:ink,boxWidth:10,boxHeight:10,usePointStyle:true,pointStyle:'rectRounded',font:{family:'IBM Plex Sans',size:12}}},
+        tooltip:{backgroundColor:tok('--surface'),titleColor:tok('--ink'),bodyColor:tok('--ink'),borderColor:tok('--line'),borderWidth:1,padding:10,
+          bodyFont:{family:'IBM Plex Mono'},titleFont:{family:'IBM Plex Sans',weight:'600'},
+          callbacks:{label:c=>` ${c.dataset.label}: ${yFmt(c.parsed.y)}`}}},
+      scales:{x:{grid:{display:false},border:{color:grid},ticks:{color:ink,font:{family:'IBM Plex Mono',size:11}}},
+              y:{grid:{color:grid},border:{display:false},ticks:{color:ink,font:{family:'IBM Plex Mono',size:11},callback:v=>yFmt(v)}}}};
+  }
+  const bar=(label,data,color)=>({type:'bar',label,data,backgroundColor:color,borderRadius:4,borderSkipped:'start',maxBarThickness:34,categoryPercentage:.7,barPercentage:.9,borderColor:tok('--surface'),borderWidth:{left:1,right:1}});
+  const line=(label,data,color,extra={})=>Object.assign({type:'line',label,data,borderColor:color,backgroundColor:color,borderWidth:2,pointRadius:3,pointHoverRadius:5,tension:.25},extra);
+
+  function build(){
+    charts.forEach(c=>c.destroy()); charts.length=0;
+    const s1=tok('--s1'), s2=tok('--s2'), s3=tok('--s3'), muted=tok('--faint'), acc=tok('--accent');
+    const B=v=>'$'+Math.round(v)+'B', P=v=>(+v).toFixed(2)+'%', P1=v=>(+v).toFixed(1)+'%';
+
+    charts.push(new Chart(chFin,{data:{labels:['2023','2024','2025'],datasets:[
+      bar('Revenue',[307.4,350.0,402.8],s1), bar('Operating income',[84.3,112.4,129.0],s2), bar('Net income',[73.8,100.1,132.2],s3)]},options:base(B)}));
+
+    charts.push(new Chart(chBS,{data:{labels:['2023','2024','2025','Jun-26'],datasets:[
+      bar('Total assets',[402.4,450.3,595.3,922.0],s1), bar('Liabilities',[119.0,125.2,180.0,281.5],s2), bar('Equity',[283.4,325.1,415.3,640.5],s3)]},options:base(B)}));
+
+    const oc=base(B);
+    charts.push(new Chart(chCapex,{data:{labels:['2024','2025','2026e','2027e'],datasets:[
+      bar('Capex',[52.5,91.4,201.8,309.2],s1), bar('Free cash flow',[72.8,73.3,-3,-32],s2)]},options:oc}));
+
+    const cpiL=['Q1-23','Q2-23','Q3-23','Q4-23','Q1-24','Q2-24','Q3-24','Q4-24','Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26','Aug-26','Sep-26'];
+    const cpi=[3.3,1.9,3.5,3.1,3.2,3.4,1.5,2.8,2.3,2.3,3.0,2.9,3.4,3.2,4.3,4.9];
+    const co=base(P1); co.plugins.tooltip.filter=i=>i.datasetIndex===0;
+    charts.push(new Chart(chCPI,{data:{labels:cpiL,datasets:[
+      line('Spain CPI YoY',cpi,acc,{pointRadius:cpi.map((_,i)=>i===cpi.length-1?5:2.5)}),
+      line('ECB target',cpiL.map(()=>2),muted,{borderDash:[5,4],pointRadius:0,borderWidth:1.5})]},options:co}));
+
+    const gl=['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','2026e'];
+    const gd=[3.0,3.0,2.3,2.0,-10.9,6.7,6.2,2.7,3.2,2.8,2.7];
+    const go=base(P1); go.plugins.legend.display=false;
+    charts.push(new Chart(chGDP,{data:{labels:gl,datasets:[Object.assign(bar('GDP growth',gd,s1),{backgroundColor:gd.map((v,i)=>i===gd.length-1?tok('--s3'):s1)})]},options:go}));
+
+    const yl=['0.5','1.0','1.5','2.0','2.5','3.0','3.5','4.0','4.5','5.0'];
+    const cu=base(P); cu.scales.x.title={display:true,text:'Maturity (years)',color:tok('--muted'),font:{family:'IBM Plex Sans',size:11}};
+    charts.push(new Chart(chCurves,{data:{labels:yl,datasets:[line('US',us,s1),line('Spain',es,s2)]},options:cu}));
+
+    const fo=base(v=>(+v).toFixed(4)); fo.scales.x.title={display:true,text:'Maturity (years)',color:tok('--muted'),font:{family:'IBM Plex Sans',size:11}};
+    charts.push(new Chart(chFwd,{data:{labels:yl,datasets:[line('IRP forward',fwd,s1,{fill:{target:{value:S0},above:s1+'22'}}),line('Spot S₀ = 0.90',yl.map(()=>S0),muted,{borderDash:[5,4],pointRadius:0,borderWidth:1.5})]},options:fo}));
+  }
+  build();
+  try{
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change',build);
+    new MutationObserver(build).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
